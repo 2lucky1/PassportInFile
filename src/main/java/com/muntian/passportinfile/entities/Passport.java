@@ -1,5 +1,6 @@
 package com.muntian.passportinfile.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -7,7 +8,8 @@ public class Passport {
     private String _name;
     private String _lastName;
     private String _number;
-    private Collection<Visa> _visas;
+    //I`v changed this code
+    private Collection<Visa> _visas = new ArrayList<>();
 
     public Passport(String name, String lastName, String number) {
         _name = name;
@@ -58,6 +60,7 @@ public class Passport {
         return result;
     }
 
+    //I`v changed this code
     @Override
     public String toString() {
         return "Passport{" +
@@ -65,7 +68,7 @@ public class Passport {
                 ", _lastName='" + _lastName + '\'' +
                 ", _number='" + _number + '\'' +
                 ", _visas=" + _visas +
-                '}';
+                '}' + System.lineSeparator();
     }
 }
 

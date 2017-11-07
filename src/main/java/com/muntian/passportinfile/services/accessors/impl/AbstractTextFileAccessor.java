@@ -1,10 +1,9 @@
 package com.muntian.passportinfile.services.accessors.impl;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Scanner;
 
 public abstract class AbstractTextFileAccessor<T> {
 
@@ -32,6 +31,23 @@ public abstract class AbstractTextFileAccessor<T> {
     }
 
     protected abstract void saveEntity(PrintStream writer, T entity);
+
+    //My code
+    public Collection<T> readAll() {
+        Collection<T> result = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new File(_fileName))) {
+            while (scanner.hasNextLine()) {
+                readEntity(result, scanner);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    //My code
+    protected abstract void readEntity(Collection<T> result, Scanner scanner);
 
 
 }
