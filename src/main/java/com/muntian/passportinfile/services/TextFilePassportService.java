@@ -11,16 +11,25 @@ import java.util.*;
 
 //This class is my code
 public class TextFilePassportService implements PassportService {
+    private PassportAccessor passportAccessor;
+    private VisaAccessor visaAccessor;
+    private Collection<Passport> passports;
+    private Collection<Visa> visas;
+    private Map<String, Visa> visaMap;
+
+    public TextFilePassportService(String passportFileName, String visaFileName) {
+        this.passportAccessor = new TextFilePassportAccessor(passportFileName);
+
+        this.visaAccessor = new TextFileVisaAccessor(visaFileName);
+        this.passports = passportAccessor.readAll();
+        this.visas = visaAccessor.readAll();
+        this.visaMap = new HashMap<>();
+    }
 
     @Override
-    public Collection<Passport> readAll(String passportFileName, String visaFileName) {
-        PassportAccessor passportAccessor = new TextFilePassportAccessor(passportFileName);
-        VisaAccessor visaAccessor = new TextFileVisaAccessor(visaFileName);
-        Collection<Passport> passports = passportAccessor.readAll();
-        Collection<Visa> visas = visaAccessor.readAll();
-        Map<String,Visa> visaMap = new HashMap<>();
+    public Collection<Passport> readAll() {
         for (Visa visa : visas) {
-            visaMap.put(visa.getPassportNumber(),visa);
+            visaMap.put(visa.getPassportNumber(), visa);
         }
         for (Passport passport : passports) {
             passport.addVisa(visaMap.get(passport.getNumber()));
@@ -29,14 +38,10 @@ public class TextFilePassportService implements PassportService {
     }
 
     @Override
-    public void save(Collection<Passport> passports, String passportsFileName, String visasFileName) {
-        VisaAccessor visaAccessor = new TextFileVisaAccessor(visasFileName);
+    public void save(Collection<Passport> passports) {
         for (Passport passport : passports) {
             visaAccessor.save(passport.getVisas());
         }
-
-        PassportAccessor passportAccessor = new TextFilePassportAccessor(passportsFileName);
         passportAccessor.save(passports);
-
     }
 }

@@ -28,7 +28,7 @@ public class Main {
         String visasFileName = "visa2.psp";
 
         //Creation of PassportService
-        PassportService passportService = new TextFilePassportService();
+        PassportService passportService = new TextFilePassportService(passportsFileName,visasFileName);
 
         //Creation of the collection of passports with visas
         Collection<Passport> passports = createPassportsWithVisas();
@@ -37,14 +37,13 @@ public class Main {
         System.out.println(passports);
 
         //Saving of the information of the passports to files
-        passportService.save(passports, passportsFileName, visasFileName);
+        passportService.save(passports);
         System.out.println();
 
         System.out.println("Reading of passports");
         //Reading of the information of the passports to files
-        passportService.readAll(passportsFileName, visasFileName);
+        passportService.readAll();
         System.out.println(passports);
-
     }
 
     //My code
