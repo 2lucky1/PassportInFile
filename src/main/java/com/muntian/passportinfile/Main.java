@@ -28,7 +28,8 @@ public class Main {
         String visasFileName = "visa2.psp";
 
         //Creation of PassportService
-        PassportService passportService = new TextFilePassportService(passportsFileName,visasFileName);
+        PassportService passportService = new TextFilePassportService(new TextFilePassportAccessor(passportsFileName),
+                                                                      new TextFileVisaAccessor(visasFileName));
 
         //Creation of the collection of passports with visas
         Collection<Passport> passports = createPassportsWithVisas();
