@@ -14,8 +14,7 @@ public class TextFilePassportService implements PassportService {
     private PassportAccessor passportAccessor;
     private VisaAccessor visaAccessor;
 
-    public TextFilePassportService(PassportAccessor passportAccessor, VisaAccessor visaAccessor,
-                                   String passportFileName, String visaFileName) {
+    public TextFilePassportService(PassportAccessor passportAccessor, VisaAccessor visaAccessor) {
         this.passportAccessor = passportAccessor;
         this.visaAccessor = visaAccessor;
     }
