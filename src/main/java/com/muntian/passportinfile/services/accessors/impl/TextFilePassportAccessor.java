@@ -3,8 +3,7 @@ package com.muntian.passportinfile.services.accessors.impl;
 import com.muntian.passportinfile.entities.Passport;
 import com.muntian.passportinfile.services.accessors.PassportAccessor;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Scanner;
 
@@ -25,23 +24,14 @@ public class TextFilePassportAccessor
         writer.println(passport.getLastName());
     }
 
-    @Override
-    public Collection<Passport> readAll() {
-        Collection<Passport> result = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(_fileName))) {
-            while (scanner.hasNextLine()) {
-                String number = scanner.nextLine();
-                String firstName = scanner.nextLine();
-                String lastName = scanner.nextLine();
-                scanner.nextLine();
-                Passport readPassport = new Passport(firstName, lastName, number);
-                result.add(readPassport);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return result;
+    //I`v moved this code in method
+    protected void readEntity(Collection<Passport> result, Scanner scanner) {
+        String number = scanner.nextLine();
+        String firstName = scanner.nextLine();
+        String lastName = scanner.nextLine();
+        scanner.nextLine();
+        Passport readPassport = new Passport(firstName, lastName, number);
+        result.add(readPassport);
     }
 
     @Override

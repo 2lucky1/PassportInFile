@@ -1,5 +1,6 @@
 package com.muntian.passportinfile.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Visa {
@@ -51,12 +52,15 @@ public class Visa {
         return _passportNumber;
     }
 
+    //My code
     @Override
     public String toString() {
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy");
         return "Visa{" +
-                "_country='" + _country + '\'' +
-                ", _from=" + _from +
-                ", _to=" + _to +
+                "_passportNumber = " + _passportNumber +
+                ", _country = '" + _country + '\'' +
+                ", _from = " + formatForDateNow.format(_from.getTime()) +
+                ", _to = " + formatForDateNow.format(_to.getTime()) +
                 '}';
     }
 }

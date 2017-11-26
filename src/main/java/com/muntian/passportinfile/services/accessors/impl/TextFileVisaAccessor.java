@@ -4,7 +4,7 @@ import com.muntian.passportinfile.entities.Visa;
 import com.muntian.passportinfile.services.accessors.VisaAccessor;
 
 import java.io.PrintStream;
-import java.util.Collection;
+import java.util.*;
 
 public class TextFileVisaAccessor
         extends AbstractTextFileAccessor<Visa>
@@ -23,9 +23,17 @@ public class TextFileVisaAccessor
         writer.println(visa.getTo().getTime().getTime());
     }
 
+    //My code
     @Override
-    public Collection<Visa> readAll() {
-        return null;
+    protected void readEntity(Collection<Visa> result, Scanner scanner) {
+        String number = scanner.nextLine();
+        String country = scanner.nextLine();
+        Calendar from = new GregorianCalendar();
+        from.setTimeInMillis(Long.parseLong(scanner.nextLine()));
+        Calendar to = new GregorianCalendar();
+        to.setTimeInMillis(Long.parseLong(scanner.nextLine()));
+        Visa readVisa = new Visa(number,country,from,to);
+        result.add(readVisa);
     }
 
     @Override
